@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Дима Липихин](https://up.htmlacademy.ru/javascript/33/user/2537303).
-* Наставник: `Неизвестно`.
+* Наставник: [Артём Картавый](https://htmlacademy.ru/profile/artem_k).
 
 ---
 
