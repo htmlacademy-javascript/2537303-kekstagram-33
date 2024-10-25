@@ -32,9 +32,6 @@ let checkNumber = function(inputString){
     if(!Number.isNaN(verifiedNumber)){
       digits += num;
     }
-
-    if(digits === ''){
-      return NaN;
     }
   }
   return parseInt(digits);
