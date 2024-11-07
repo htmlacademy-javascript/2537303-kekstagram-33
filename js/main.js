@@ -21,7 +21,7 @@ const DESCRIPTION = [
   'Зимний пейзаж',
 ];
 
-const MESSAGES = [
+const MESSAGE = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -81,7 +81,7 @@ function generateComments(){
   return {
     id: commentId(),
     avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-    message: getRandomArrayElement(MESSAGES),
+    message: getRandomArrayElement(MESSAGE),
     name: getRandomArrayElement(NAMES),
   }
 }
