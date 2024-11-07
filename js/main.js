@@ -86,4 +86,4 @@ function generateComments(){
   }
 }
 
-console.log(generatePosts());
+generatePosts();
