@@ -30,10 +30,6 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const ID_PHOTO_COUNT = 25;
-
-const ADDRESS_PHOTO_COUNT = 25;
-
 const POST_QUANTITY = 25;
 
 const getRandomInteger = (a, b) => {
@@ -45,33 +41,25 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-function getUniqueId (POST_QUANTITY) {
-  let result = [];
-  for(i = 1; i <= POST_QUANTITY; i++){
-    result.push(generatePost(i));
-  }
-  return result;
-}
-
 const createCommentId = () => {
   let currentId = 0;
-  return () => ++currentId
-}
+  return () => ++currentId;
+};
 const commentId = createCommentId();
 
 function generatePost(id) {
   return{
-  id: id,
-  url: `photos/${id}.jpg`,
-  description: getRandomArrayElement(DESCRIPTION),
-  likes: getRandomInteger(15, 200),
-  comments: generateComments(),
+    id: id,
+    url: `photos/${id}.jpg`,
+    description: getRandomArrayElement(DESCRIPTION),
+    likes: getRandomInteger(15, 200),
+    comments: generateComments(),
   };
-};
+}
 
 function generatePosts() {
   const result = [];
-  for (let i = 1; i <= 25; i++) {
+  for (let i = 1; i <= POST_QUANTITY; i++) {
     result.push(generatePost(i));
   }
   return result;
@@ -83,7 +71,7 @@ function generateComments(){
     avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
     message: getRandomArrayElement(MESSAGES),
     name: getRandomArrayElement(NAMES),
-  }
+  };
 }
 
 generatePosts();
