@@ -32,12 +32,12 @@ const MESSAGES = [
 const numbersLike = {
   min: 25,
   max: 200,
-}
+};
 
 const avatarId = {
   min: 1,
   max: 6,
-}
+};
 const POST_QUANTITY = 25;
 
 const getRandomInteger = (a, b) => {
@@ -82,4 +82,4 @@ function generateComments(){
   };
 }
 
-console.log(generatePosts());
+generatePosts();
