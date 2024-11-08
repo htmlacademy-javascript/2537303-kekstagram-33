@@ -13,7 +13,7 @@ const NAMES = [
   'Екатерина',
 ];
 
-const DESCRIPTION = [
+const DESCRIPTIONS = [
   'Закат над морем',
   'Лесная прогулка',
   'Городская архитектура',
@@ -29,7 +29,15 @@ const MESSAGES = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
+const numbersLike = {
+  min: 25,
+  max: 200,
+}
 
+const avatarId = {
+  min: 1,
+  max: 6,
+}
 const POST_QUANTITY = 25;
 
 const getRandomInteger = (a, b) => {
@@ -51,8 +59,8 @@ function generatePost(id) {
   return{
     id: id,
     url: `photos/${id}.jpg`,
-    description: getRandomArrayElement(DESCRIPTION),
-    likes: getRandomInteger(15, 200),
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomInteger(numbersLike.min, numbersLike.max),
     comments: generateComments(),
   };
 }
@@ -68,10 +76,10 @@ function generatePosts() {
 function generateComments(){
   return {
     id: commentId(),
-    avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+    avatar: `img/avatar-${getRandomInteger(avatarId.min, avatarId.max)}.svg`,
     message: getRandomArrayElement(MESSAGES),
     name: getRandomArrayElement(NAMES),
   };
 }
 
-generatePosts();
+console.log(generatePosts());
