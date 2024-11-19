@@ -1,4 +1,4 @@
-import { generatePosts } from "./data.mjs";
+import { generatePosts } from "./data.js";
 
 var postContainer = document.querySelector('.pictures');
 var postTemplate = document.querySelector('#picture').content.querySelector('.picture');

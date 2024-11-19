@@ -1,4 +1,4 @@
-import {getRandomArrayElement,getRandomInteger} from './util.mjs';
+import {getRandomArrayElement,getRandomInteger} from './util.js';
 const NAMES = [
   'Дмитрий',
   'Антон',
