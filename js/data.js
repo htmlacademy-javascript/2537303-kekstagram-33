@@ -40,10 +40,10 @@ const avatarId = {
   max: 6,
 };
 
-const comments_quantity = {
+const commentsQuantity = {
   min: 1,
   max: 30,
-}
+};
 const POST_QUANTITY = 25;
 
 const createCommentId = () => {
@@ -81,7 +81,7 @@ function generateComment(){
 
 function generateComments() {
   const result = [];
-  const max = getRandomInteger(comments_quantity.min, comments_quantity.max);
+  const max = getRandomInteger(commentsQuantity.min, commentsQuantity.max);
 
   for (let i = 0; i <= max; i++) {
     result.push(generateComment());
@@ -90,5 +90,5 @@ function generateComments() {
 }
 
 
-console.log(generatePosts());
+generatePosts();
 export {generatePosts};

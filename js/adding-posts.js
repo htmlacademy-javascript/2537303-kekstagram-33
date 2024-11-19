@@ -1,10 +1,10 @@
-import { generatePosts } from "./data.js";
+import { generatePosts } from './data.js';
 
-var postContainer = document.querySelector('.pictures');
-var postTemplate = document.querySelector('#picture').content.querySelector('.picture');
-var newPost = generatePosts();
+const postContainer = document.querySelector('.pictures');
+const postTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const newPost = generatePosts();
 
-var storageNewPost = document.createDocumentFragment();
+const storageNewPost = document.createDocumentFragment();
 
 newPost.forEach(({url, description, likes, comments}) => {
   const newPostTemplate = postTemplate.cloneNode(true);
