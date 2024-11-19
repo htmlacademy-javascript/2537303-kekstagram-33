@@ -1,4 +1,4 @@
-import {getRandomArrayElement,getRandomInteger} from './util.mjs';
+import {getRandomArrayElement,getRandomInteger} from './util.js';
 const NAMES = [
   'Дмитрий',
   'Антон',
@@ -39,6 +39,11 @@ const avatarId = {
   min: 1,
   max: 6,
 };
+
+const commentsQuantity = {
+  min: 1,
+  max: 30,
+};
 const POST_QUANTITY = 25;
 
 const createCommentId = () => {
@@ -65,7 +70,7 @@ function generatePosts() {
   return result;
 }
 
-function generateComments(){
+function generateComment(){
   return {
     id: commentId(),
     avatar: `img/avatar-${getRandomInteger(avatarId.min, avatarId.max)}.svg`,
@@ -74,4 +79,16 @@ function generateComments(){
   };
 }
 
+function generateComments() {
+  const result = [];
+  const max = getRandomInteger(commentsQuantity.min, commentsQuantity.max);
+
+  for (let i = 0; i <= max; i++) {
+    result.push(generateComment());
+  }
+  return result;
+}
+
+
+generatePosts();
 export {generatePosts};
