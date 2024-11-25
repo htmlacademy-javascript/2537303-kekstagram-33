@@ -1,6 +1,6 @@
-import {generatePosts} from './data.js';
+import {showMiniatures} from './adding-posts.js';
 import './adding-posts.js';
 
 
-generatePosts();
+showMiniatures();
 
