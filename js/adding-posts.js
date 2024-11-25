@@ -27,9 +27,7 @@ const onSmallPhotoClick = (evt) => {
     if(photoClick){
       const photoId = parseInt(photoClick.dataset.id, 10);
       const photo = newPosts.find((element) => element.id === photoId);
-      if(typeof photo !== 'underfined'){
         showBigPicture(photo);
-      }
     }
   }
 };
