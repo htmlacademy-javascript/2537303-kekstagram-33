@@ -1,5 +1,7 @@
 import { isEscapeKey } from './util.js';
 
+const NUMBER_UPLOAD_COMMENTS = 5;
+
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImage = bigPicture.querySelector('.big-picture__img img');
 const bigPictureCaption = bigPicture.querySelector('.social__caption');
@@ -16,9 +18,8 @@ let displayedComments = 0;
 
 const renderComments = () => {
   const storageNewComment = document.createDocumentFragment();
-  const numberUploadComments = 5;
 
-  for(let i = 0; i <= numberUploadComments - 1; i++){
+  for(let i = 0; i <= NUMBER_UPLOAD_COMMENTS - 1; i++){
     if(displayedComments < comment.length){
       const { avatar, message, name } = comment[displayedComments];
       const newCommentTemplate = bigPictureComment.cloneNode(true);
