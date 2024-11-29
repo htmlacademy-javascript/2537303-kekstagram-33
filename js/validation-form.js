@@ -15,17 +15,14 @@ const uploadForm = document.querySelector('.img-upload__form');
 const hashtagsInput = document.querySelector('.text__hashtags');
 const descriptionInput = document.querySelector('.text__description');
 
-hashtagsInput.addEventListener('keydown', (evt) =>{
+const onFormCancelKeydownEnter = (evt) => {
   if(isEscapeKey){
     evt.stopPropagation();
   }
-});
+}
+hashtagsInput.addEventListener('keydown', onFormCancelKeydownEnter);
 
-descriptionInput.addEventListener('keydown', (evt) =>{
-  if(isEscapeKey){
-    evt.stopPropagation();
-  }
-});
+descriptionInput.addEventListener('keydown', onFormCancelKeydownEnter);
 
 const pristine = new Pristine(uploadForm,{
   classTo: 'img-upload__field-wrapper',
@@ -82,4 +79,4 @@ uploadForm.addEventListener('submit', (evt) => {
   }
 });
 
-export {descriptionInput, hashtagsInput, validationHashtag, validationDescription, uploadForm, resetPristine};
+export {descriptionInput, hashtagsInput, validationHashtag, validationDescription, uploadForm, resetPristine, onFormCancelKeydownEnter};

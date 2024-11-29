@@ -1,5 +1,5 @@
 import { isEscapeKey, isEnterKey } from './util';
-import { descriptionInput, hashtagsInput, validationHashtag, validationDescription, uploadForm, resetPristine} from './validation-form';
+import { descriptionInput, hashtagsInput, validationHashtag, validationDescription, uploadForm, resetPristine, onFormCancelKeydownEnter} from './validation-form';
 //import { submitsForm } from './submitting-form'//
 
 const uploadInput = document.querySelector('.img-upload__input');
@@ -50,6 +50,8 @@ const closeUploadPhotoOverlay = () => {
   photoPreview.src = '';
   uploadForm.reset();
   resetPristine();
+  hashtagsInput.removeEventListener('keydown', onFormCancelKeydownEnter);
+  descriptionInput.removeEventListener('keydown', onFormCancelKeydownEnter);
 };
 
 const openUploadPhotoOverlay = (evt) => {
