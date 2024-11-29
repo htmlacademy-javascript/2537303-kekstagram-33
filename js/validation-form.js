@@ -19,7 +19,7 @@ const onFormCancelKeydownEnter = (evt) => {
   if(isEscapeKey){
     evt.stopPropagation();
   }
-}
+};
 hashtagsInput.addEventListener('keydown', onFormCancelKeydownEnter);
 
 descriptionInput.addEventListener('keydown', onFormCancelKeydownEnter);
