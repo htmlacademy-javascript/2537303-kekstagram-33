@@ -46,10 +46,8 @@ const checkSizeHashtags = (element) => splitsTheEnteredData(element).length <= M
 
 const checkValidHashtag = (element) => {
   const hashtag = splitsTheEnteredData(element);
-  if (hashtagsInput.value.trim().length === 0) {
-    document.querySelector('img-upload__error').textContent = '';
-  }
-  return HASHTAG_STRING.test(hashtag);
+  const isEmpty = !hashtagsInput.value.trim();
+  return HASHTAG_STRING.test(hashtag) || isEmpty;
 };
 
 const checkUniquenessHashtag = (element) => {
