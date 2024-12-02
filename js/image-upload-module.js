@@ -1,5 +1,5 @@
 import { isEscapeKey, isEnterKey } from './util';
-import { descriptionInput, hashtagsInput, validationHashtag, validationDescription, uploadForm, resetPristine, onFormCancelKeydownEnter} from './validation-form';
+import { initValidation, resetPristine } from './validation-form';
 //import { submitsForm } from './submitting-form'//
 
 const uploadInput = document.querySelector('.img-upload__input');
@@ -9,21 +9,23 @@ const photoCancel = document.querySelector('.img-upload__cancel');
 //const photoForm = document.querySelector ('.img-upload__form');
 const effectsItemPreview = document.querySelectorAll('.effects__item span');
 
+const closingOverlay = () => {
+  photoOverlay.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  photoPreview.src = '';
+};
+
 const onPhotoOverlayKeydownEnter = (evt) => {
   if(isEnterKey(evt)){
     evt.preventDefault();
-    photoOverlay.classList.add('hidden');
-    document.body.classList.remove('modal-open');
-    photoPreview.src = '';
+    closingOverlay();
   }
 };
 
 const onPhotoOverlayKeydownEsc = (evt) => {
   if(isEscapeKey(evt)){
     evt.preventDefault();
-    photoOverlay.classList.add('hidden');
-    document.body.classList.remove('modal-open');
-    photoPreview.src = '';
+    closingOverlay();
   }
 };
 
@@ -32,10 +34,10 @@ const uploadPhotoPreview = (evt) => {
   if (file) {
     const reader = new FileReader();
 
-    reader.onload = () => {
-      photoPreview.src = evt.target.result;
+    reader.onload = (element) => {
+      photoPreview.src = element.target.result;
       effectsItemPreview.forEach((item) => {
-        item.style.backgroundImage = `url('${evt.target.result}')`;
+        item.style.backgroundImage = `url('${element.target.result}')`;
       });
     };
 
@@ -44,14 +46,9 @@ const uploadPhotoPreview = (evt) => {
 };
 
 const closeUploadPhotoOverlay = () => {
-  photoOverlay.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+  closingOverlay();
   window.removeEventListener('keydown', onPhotoOverlayKeydownEsc);
-  photoPreview.src = '';
-  uploadForm.reset();
   resetPristine();
-  hashtagsInput.removeEventListener('keydown', onFormCancelKeydownEnter);
-  descriptionInput.removeEventListener('keydown', onFormCancelKeydownEnter);
 };
 
 const openUploadPhotoOverlay = (evt) => {
@@ -61,8 +58,8 @@ const openUploadPhotoOverlay = (evt) => {
   window.addEventListener('keydown', onPhotoOverlayKeydownEsc);
   photoCancel.addEventListener('click', closeUploadPhotoOverlay);
   photoCancel.addEventListener('keydown', onPhotoOverlayKeydownEnter);
-  validationDescription(descriptionInput.value);
-  validationHashtag(hashtagsInput.value);
+  initValidation();
+  resetPristine();
   //photoForm.addEventListener('submit', submitsForm);//
 };
 

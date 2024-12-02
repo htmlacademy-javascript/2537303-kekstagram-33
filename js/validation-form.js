@@ -34,20 +34,21 @@ const pristine = new Pristine(uploadForm,{
 });
 
 const resetPristine = () => {
+  uploadForm.reset();
   pristine.reset();
 };
 
 const checkSizeDescription = (element) => element.length <= MAX_SIZE_COMMENTS;
 
-const splitsTheEnteredData = (element) => {
-  const hashtags = element.trim().split(/\s+/);
-  return hashtags;
-};
+const splitsTheEnteredData = (element) => element.trim().split(/\s+/);
 
 const checkSizeHashtags = (element) => splitsTheEnteredData(element).length <= MAX_QUANTITY_HASHTAGS;
 
 const checkValidHashtag = (element) => {
   const hashtag = splitsTheEnteredData(element);
+  if (hashtagsInput.value.trim().length === 0) {
+    document.querySelector('img-upload__error').textContent = '';
+  }
   return HASHTAG_STRING.test(hashtag);
 };
 
@@ -57,20 +58,12 @@ const checkUniquenessHashtag = (element) => {
   return uniquenessHashtags.size === hashtag.length;
 };
 
-const validationHashtag = (element) => {
-  checkUniquenessHashtag(element);
-  checkSizeHashtags(element);
-  checkValidHashtag(element);
+const initValidation = () => {
+  pristine.addValidator(hashtagsInput, checkSizeHashtags, errorMessage.QUANTITY_EXCEEDED_HASHTAG);
+  pristine.addValidator(descriptionInput, checkSizeDescription, errorMessage.SIZE_COMMENT_EXCEEDED);
+  pristine.addValidator(hashtagsInput, checkUniquenessHashtag, errorMessage.REPEAT_HASHTAGS);
+  pristine.addValidator(hashtagsInput, checkValidHashtag, errorMessage.INVALID_HASHTAG);
 };
-
-const validationDescription = (element) => {
-  checkSizeHashtags(element);
-};
-
-pristine.addValidator(hashtagsInput, checkSizeHashtags, errorMessage.QUANTITY_EXCEEDED_HASHTAG);
-pristine.addValidator(descriptionInput, checkSizeDescription, errorMessage.SIZE_COMMENT_EXCEEDED);
-pristine.addValidator(hashtagsInput, checkUniquenessHashtag, errorMessage.REPEAT_HASHTAGS);
-pristine.addValidator(hashtagsInput, checkValidHashtag, errorMessage.INVALID_HASHTAG);
 
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
@@ -79,4 +72,4 @@ uploadForm.addEventListener('submit', (evt) => {
   }
 });
 
-export {descriptionInput, hashtagsInput, validationHashtag, validationDescription, uploadForm, resetPristine, onFormCancelKeydownEnter};
+export {initValidation, resetPristine};
