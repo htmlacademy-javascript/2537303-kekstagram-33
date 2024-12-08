@@ -1,5 +1,7 @@
 const ZOOM_STEP = 25;
 const INITIAL_SCALE_VALUE = 100;
+const MIN_SCALE = 25;
+const MAX_SCALE = 100;
 
 const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
@@ -12,13 +14,13 @@ const assignsScaleImage = (value) => {
   scalableImage.style.transform = `scale(${value / 100})`;
 };
 
-const defaultScale = () => {
+const setsDefaultScale = () => {
   scaleValue = INITIAL_SCALE_VALUE;
   assignsScaleImage (scaleValue);
 };
 
 const checksScaleValueSmaller = () => {
-  if (scaleValue === 25){
+  if (scaleValue === MIN_SCALE){
     scaleControlSmaller.disabled = true;
   }else{
     scaleControlSmaller.disabled = false;
@@ -26,15 +28,15 @@ const checksScaleValueSmaller = () => {
 };
 
 const checksScaleValueBigger = () => {
-  if (scaleValue === 100){
+  if (scaleValue === MAX_SCALE){
     scaleControlBigger.disabled = true;
   }else{
     scaleControlBigger.disabled = false;
   }
 };
 
-const changeScaleSmaller = () => {
-  if(scaleValue > 25){
+const onChangeScaleSmaller = () => {
+  if(scaleValue > MIN_SCALE){
     checksScaleValueSmaller();
     scaleValue -= ZOOM_STEP;
     scaleControlValue.value = `${scaleValue}%`;
@@ -42,8 +44,8 @@ const changeScaleSmaller = () => {
   }
 };
 
-const changeScaleBigger = () => {
-  if(scaleValue < 100){
+const onChangeScaleBigger = () => {
+  if(scaleValue < MAX_SCALE){
     checksScaleValueBigger();
     scaleValue += ZOOM_STEP;
     scaleControlValue.value = `${scaleValue}%`;
@@ -52,9 +54,9 @@ const changeScaleBigger = () => {
 };
 
 const imageScaling = () => {
-  defaultScale();
-  scaleControlSmaller.addEventListener('click', changeScaleSmaller);
-  scaleControlBigger.addEventListener('click', changeScaleBigger);
+  setsDefaultScale();
+  scaleControlSmaller.addEventListener('click', onChangeScaleSmaller);
+  scaleControlBigger.addEventListener('click', onChangeScaleBigger);
 };
 
 export {imageScaling};
