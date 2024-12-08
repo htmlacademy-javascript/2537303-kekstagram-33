@@ -1,5 +1,7 @@
 import { isEscapeKey, isEnterKey } from './util';
 import { initValidation, resetPristine } from './validation-form';
+import { imageScaling } from './image-scaling-module';
+import { reset } from './image-effect-module';
 //import { submitsForm } from './submitting-form'//
 
 const uploadInput = document.querySelector('.img-upload__input');
@@ -49,6 +51,7 @@ const closeUploadPhotoOverlay = () => {
   closingOverlay();
   window.removeEventListener('keydown', onPhotoOverlayKeydownEsc);
   resetPristine();
+  reset();
 };
 
 const openUploadPhotoOverlay = (evt) => {
@@ -60,6 +63,7 @@ const openUploadPhotoOverlay = (evt) => {
   photoCancel.addEventListener('keydown', onPhotoOverlayKeydownEnter);
   initValidation();
   resetPristine();
+  imageScaling();
   //photoForm.addEventListener('submit', submitsForm);//
 };
 
