@@ -37,7 +37,7 @@ const uploadPhotoPreview = (evt) => {
     const objectURL = URL.createObjectURL(file);
     photoPreview.src = objectURL;
     effectsItemPreview.forEach((item) => {
-    item.style.backgroundImage = `url('${objectURL}')`;
+      item.style.backgroundImage = `url('${objectURL}')`;
     });
   }
 };
