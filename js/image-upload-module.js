@@ -34,15 +34,11 @@ const onPhotoOverlayKeydownEsc = (evt) => {
 const uploadPhotoPreview = (evt) => {
   const file = evt.target.files[0];
   if (file) {
-    const reader = new FileReader();
-
-    reader.onload = (element) => {
-      photoPreview.src = element.target.result;
-      effectsItemPreview.forEach((item) => {
-        item.style.backgroundImage = `url('${element.target.result}')`;
-      });
-    };
-    reader.readAsDataURL(file);
+    const objectURL = URL.createObjectURL(file);
+    photoPreview.src = objectURL;
+    effectsItemPreview.forEach((item) => {
+      item.style.backgroundImage = `url('${objectURL}')`;
+    });
   }
 };
 
@@ -55,7 +51,7 @@ const closeUploadPhotoOverlay = () => {
 
 const openUploadPhotoOverlay = (evt) => {
   photoOverlay.classList.remove('hidden');
-  photoOverlay.classList.add('modal-open');
+  document.body.classList.add('modal-open');
   uploadPhotoPreview(evt);
   window.addEventListener('keydown', onPhotoOverlayKeydownEsc);
   photoCancel.addEventListener('click', closeUploadPhotoOverlay);
