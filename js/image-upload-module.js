@@ -61,7 +61,6 @@ const openUploadPhotoOverlay = (evt) => {
   photoCancel.addEventListener('click', closeUploadPhotoOverlay);
   photoCancel.addEventListener('keydown', onPhotoOverlayKeydownEnter);
   initValidation();
-  resetPristine();
   imageScaling();
   uploadForm.addEventListener('submit', onSubmitData);
   document.addEventListener('keydown', onDocumentEscPress);
