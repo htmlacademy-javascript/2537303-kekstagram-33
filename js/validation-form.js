@@ -1,4 +1,8 @@
 import { isEscapeKey } from './util';
+import {handleSuccess, handleError, blockSubmitButton, unblockSubmitButton, isErrorMessageShown} from './post-message.js';
+import { sendData  } from './submitting-form.js';
+import { closeUploadPhotoOverlay} from './image-upload-module.js';
+import { sendDataWithFile } from './submitting-form.js';
 
 const MAX_QUANTITY_HASHTAGS = 5;
 const MAX_SIZE_COMMENTS = 140;
@@ -11,9 +15,17 @@ const errorMessage = {
   SIZE_COMMENT_EXCEEDED: 'Превышен размер комментария'
 };
 
-const uploadForm = document.querySelector('.img-upload__form');
+export const uploadForm = document.querySelector('.img-upload__form');
+const uploadInput = document.querySelector('.img-upload__input');
 const hashtagsInput = document.querySelector('.text__hashtags');
 const descriptionInput = document.querySelector('.text__description');
+
+const onDocumentEscPress = (evt) => {
+  if (isEscapeKey(evt) && !isErrorMessageShown) {
+    evt.preventDefault();
+    closeUploadPhotoOverlay();
+  }
+};
 
 const onFormCancelKeydownEnter = (evt) => {
   if(isEscapeKey){
@@ -63,11 +75,19 @@ const initValidation = () => {
   pristine.addValidator(hashtagsInput, checkValidHashtag, errorMessage.INVALID_HASHTAG);
 };
 
-uploadForm.addEventListener('submit', (evt) => {
+const onSubmitData = (evt) => {
   evt.preventDefault();
-  if (pristine.validate()) {
-    uploadForm.submit();
+  const isValid = pristine.validate();
+  sendDataWithFile(uploadForm);
+  console.log(isValid);
+  if (isValid) {
+    blockSubmitButton();
+    sendData(formData)
+      .then(handleSuccess)
+      .catch(handleError)
+      .finally(unblockSubmitButton);
   }
-});
+  document.addEventListener('keydown', onDocumentEscPress);
+}
 
-export {initValidation, resetPristine};
+export {initValidation, resetPristine, onDocumentEscPress, onSubmitData}

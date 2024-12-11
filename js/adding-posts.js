@@ -1,37 +1,30 @@
-import { generatePosts } from './data.js';
 import { showBigPicture } from './big-pictures.js';
 
-const postContainer = document.querySelector('.pictures');
-const postTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const newPosts = generatePosts();
-const showMiniatures = () => {
-  const storageNewPost = document.createDocumentFragment();
+const photoTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
+export const photosContainer = document.querySelector('.pictures');
 
-  newPosts.forEach((newPost) => {
-    const newPostTemplate = postTemplate.cloneNode(true);
-    newPostTemplate.dataset.id = newPost.id;
-    newPostTemplate.querySelector('.picture__img').src = newPost.url;
-    newPostTemplate.querySelector('.picture__img').alt = newPost.description;
-    newPostTemplate.querySelector('.picture__comments').textContent = newPost.comments.length;
-    newPostTemplate.querySelector('.picture__likes').textContent = newPost.likes;
-    storageNewPost.appendChild(newPostTemplate);
+const generatePhotoElement = (photoData) => {
+  const photoElement = photoTemplateElement.cloneNode(true);
+  photoElement.querySelector('.picture__img').src = photoData.url;
+  photoElement.querySelector('.picture__img').alt = photoData.description;
+  photoElement.querySelector('.picture__likes').textContent = photoData.likes;
+  photoElement.querySelector('.picture__comments').textContent = photoData.comments.length;
+
+  photoElement.addEventListener('click', () => {
+    showBigPicture(photoData);
   });
 
-  postContainer.appendChild(storageNewPost);
+  return photoElement;
 };
 
-const onSmallPhotoClick = (evt) => {
-  if(evt.target.matches('.picture__img')){
-    const photoClick = evt.target.closest('.picture');
-
-    if(photoClick){
-      const photoId = parseInt(photoClick.dataset.id, 10);
-      const photo = newPosts.find((element) => element.id === photoId);
-      showBigPicture(photo);
-    }
-  }
+const showMiniatures = (photoData) => {
+  const photosFragment = document.createDocumentFragment();
+  photoData.forEach((photo) => {
+    const photoElement = generatePhotoElement(photo);
+    photosFragment.appendChild(photoElement);
+  });
+  photosContainer.appendChild(photosFragment);
 };
 
-postContainer.addEventListener('click', onSmallPhotoClick);
 
-export {showMiniatures};
+export { showMiniatures };

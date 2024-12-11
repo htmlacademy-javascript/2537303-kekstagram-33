@@ -2,13 +2,13 @@ import { isEscapeKey, isEnterKey } from './util';
 import { initValidation, resetPristine } from './validation-form';
 import { imageScaling } from './image-scaling-module';
 import { reset } from './image-effect-module';
+import { onDocumentEscPress, uploadForm, onSubmitData } from './validation-form';
 //import { submitsForm } from './submitting-form'//
 
 const uploadInput = document.querySelector('.img-upload__input');
 const photoOverlay = document.querySelector('.img-upload__overlay');
 const photoPreview = document.querySelector('.img-upload__preview img');
 const photoCancel = document.querySelector('.img-upload__cancel');
-//const photoForm = document.querySelector ('.img-upload__form');
 const effectsItemPreview = document.querySelectorAll('.effects__item span');
 
 const closingOverlay = () => {
@@ -42,7 +42,6 @@ const uploadPhotoPreview = (evt) => {
         item.style.backgroundImage = `url('${element.target.result}')`;
       });
     };
-
     reader.readAsDataURL(file);
   }
 };
@@ -64,11 +63,12 @@ const openUploadPhotoOverlay = (evt) => {
   initValidation();
   resetPristine();
   imageScaling();
-  //photoForm.addEventListener('submit', submitsForm);//
+  uploadForm.addEventListener('submit', onSubmitData);
+  document.addEventListener('keydown', onDocumentEscPress);
 };
 
 const uploadPhoto = () => {
   uploadInput.addEventListener('change', openUploadPhotoOverlay);
 };
 
-export {uploadPhoto};
+export {uploadPhoto, closeUploadPhotoOverlay, uploadPhotoPreview};
