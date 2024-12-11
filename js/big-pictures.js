@@ -31,6 +31,8 @@ const renderComments = () => {
 
       if(displayedComments >= comment.length){
         bigPictureCommentLoader.classList.add('hidden');
+      }else{
+        bigPictureCommentLoader.classList.remove('hidden');
       }
     }
     bigPictureCommentCount.textContent = displayedComments;
