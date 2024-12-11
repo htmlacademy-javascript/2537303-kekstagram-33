@@ -1,7 +1,18 @@
 import {showMiniatures} from './adding-posts.js';
 import {uploadPhoto} from './image-upload-module.js';
+import {sortPictures, showFiltersContainer} from './filter-gallery.js';
+import { getDataError } from './post-message.js';
 import './adding-posts.js';
 
 
-showMiniatures();
-uploadPhoto();
+getData().then((picture) => {
+  showMiniatures(picture);
+    uploadPhoto();
+    showFiltersContainer();
+    sortPictures(picture);
+  })
+  .catch(
+    (_err) => {
+      getDataError();
+    }
+  );
