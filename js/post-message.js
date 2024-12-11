@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-use-before-define */
-import { closeUploadPhotoOverlay } from "./image-upload-module";
+import { closeUploadPhotoOverlay } from './image-upload-module';
 import { isEscapeKey } from './util.js';
 
 const messageContainer = document.createElement('div');

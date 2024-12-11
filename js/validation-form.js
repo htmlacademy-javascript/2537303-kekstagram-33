@@ -1,8 +1,7 @@
 import { isEscapeKey } from './util';
 import {handleSuccess, handleError, blockSubmitButton, unblockSubmitButton, isErrorMessageShown} from './post-message.js';
-import { sendData  } from './submitting-form.js';
+import { sendData } from './submitting-form.js';
 import { closeUploadPhotoOverlay} from './image-upload-module.js';
-import { sendDataWithFile } from './submitting-form.js';
 
 const MAX_QUANTITY_HASHTAGS = 5;
 const MAX_SIZE_COMMENTS = 140;
@@ -16,7 +15,6 @@ const errorMessage = {
 };
 
 export const uploadForm = document.querySelector('.img-upload__form');
-const uploadInput = document.querySelector('.img-upload__input');
 const hashtagsInput = document.querySelector('.text__hashtags');
 const descriptionInput = document.querySelector('.text__description');
 
@@ -77,10 +75,9 @@ const initValidation = () => {
 
 const onSubmitData = (evt) => {
   evt.preventDefault();
-  const isValid = pristine.validate();
-  sendDataWithFile(uploadForm);
-  console.log(isValid);
+  const isValid = pristine.validate();// Получаем все ошибки
   if (isValid) {
+    const formData = new FormData(evt.target);
     blockSubmitButton();
     sendData(formData)
       .then(handleSuccess)
@@ -88,6 +85,6 @@ const onSubmitData = (evt) => {
       .finally(unblockSubmitButton);
   }
   document.addEventListener('keydown', onDocumentEscPress);
-}
+};
 
-export {initValidation, resetPristine, onDocumentEscPress, onSubmitData}
+export {initValidation, resetPristine, onDocumentEscPress, onSubmitData};
